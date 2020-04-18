@@ -26,6 +26,10 @@
         </mat-card-actions>
       </mat-card>
     </div>
+    <div [hidden]="!selectedDish">
+      <mat-spinner></mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+    </div>
   </div>
 
   <div fxFlex="40">
