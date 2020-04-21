@@ -6,7 +6,7 @@ import { Location } from "@angular/common";
 import { switchMap } from "rxjs/operators";
 import { ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-
+import { MatInputModule } from "@angular/material/input";
 import { Feedback, ContactType } from "../shared/feedback";
 
 @Component({
@@ -34,42 +34,26 @@ export class DishdetailComponent implements OnInit {
   @ViewChild("fform") feedbackFormDirective;
 
   formErrors = {
-    author: "",
+    name: "",
     rating: "",
-    comment: "",
+    message: "",
   };
 
   validationMessages = {
-    author: {
-      required: "First Name is required.",
-      minlength: "First Name must be at least 2 characters long.",
-      maxlength: "FirstName cannot be more than 25 characters long.",
+    name: {
+      required: "Name is required.",
+      minlength: "Name must be at least 2 characters long.",
+    },
+    message: {
+      required: "Comment is required.",
     },
   };
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      name: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(25),
-        ],
-      ],
-      lastname: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(25),
-        ],
-      ],
-      telnum: ["", [Validators.required, Validators.pattern]],
-      email: ["", [Validators.required, Validators.email]],
-      agree: false,
-      contacttype: "None",
-      message: "",
+      name: ["", [Validators.required, Validators.minLength(2)]],
+      rating: "",
+      message: ["", [Validators.required]],
     });
     this.feedbackForm.valueChanges.subscribe((data) =>
       this.onValueChanged(data)
@@ -102,15 +86,12 @@ export class DishdetailComponent implements OnInit {
     console.log(this.feedback);
     this.feedbackForm.reset({
       name: "",
-      lastname: "",
-      telnum: "",
-      email: "",
-      agree: false,
-      contacttype: "None",
+      rating: "",
       message: "",
     });
     this.feedbackFormDirective.resetForm();
   }
+
   ngOnInit() {
     this.dishservice
       .getDishIds()

@@ -67,6 +67,8 @@
       </div>
       <div>
         <mat-slider
+          matInput
+          formControlName="rating"
           min="1"
           max="5"
           step="1"
@@ -77,8 +79,16 @@
       </div>
       <div>
         <mat-form-field appearance="fill">
-          <mat-label>Your Comment</mat-label>
-          <textarea matInput></textarea>
+          <textarea
+            matInput
+            formControlName="message"
+            placeholder="Your Comment"
+            type="text"
+            required
+          ></textarea>
+          <mat-error *ngIf="formErrors.message">{{
+            formErrors.message
+          }}</mat-error>
         </mat-form-field>
         <br />
         <button
