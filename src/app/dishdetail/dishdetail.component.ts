@@ -6,7 +6,6 @@ import { Location } from "@angular/common";
 import { switchMap } from "rxjs/operators";
 import { ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatInputModule } from "@angular/material/input";
 import { Feedback, ContactType } from "../shared/feedback";
 
 @Component({
@@ -52,7 +51,7 @@ export class DishdetailComponent implements OnInit {
   createForm() {
     this.feedbackForm = this.fb.group({
       name: ["", [Validators.required, Validators.minLength(2)]],
-      rating: "",
+      rating: "5",
       message: ["", [Validators.required]],
     });
     this.feedbackForm.valueChanges.subscribe((data) =>
@@ -86,7 +85,7 @@ export class DishdetailComponent implements OnInit {
     console.log(this.feedback);
     this.feedbackForm.reset({
       name: "",
-      rating: "",
+      rating: "5",
       message: "",
     });
     this.feedbackFormDirective.resetForm();
