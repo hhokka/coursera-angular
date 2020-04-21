@@ -45,72 +45,53 @@
       <br />
     </mat-list>
   </div>
-
-  <form
-    novalidate
-    [formGroup]="feedbackForm"
-    #fform="ngForm"
-    (ngSubmit)="onSubmit()"
-  >
-    <p>
-      <mat-form-field class="half-width">
-        <input
-          matInput
-          formControlName="firstname"
-          placeholder="First Name"
-          type="text"
-          required
-        />
-        <mat-error *ngIf="formErrors.firstname">{{
-          formErrors.firstname
-        }}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input
-          matInput
-          formControlName="lastname"
-          placeholder="Last Name"
-          type="text"
-          required
-        />
-        <mat-error *ngIf="formErrors.lastname">{{
-          formErrors.lastname
-        }}</mat-error>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="half-width">
-        <input
-          matInput
-          formControlName="telnum"
-          placeholder="Tel. Number"
-          type="tel"
-          pattern="[0-9]*"
-          required
-        />
-        <mat-error *ngIf="formErrors.telnum">{{ formErrors.telnum }}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input
-          matInput
-          formControlName="email"
-          placeholder="Email"
-          type="email"
-          email
-          required
-        />
-        <mat-error *ngIf="formErrors.email">{{ formErrors.email }}</mat-error>
-      </mat-form-field>
-    </p>
-    <button
-      type="submit"
-      mat-button
-      class="background-primary text-floral-white"
-      [disabled]="feedbackForm.invalid"
+  <div>
+    <form
+      *ngIf="dish"
+      novalidate
+      [formGroup]="feedbackForm"
+      #fform="ngForm"
+      (ngSubmit)="onSubmit()"
     >
-      Submit
-    </button>
-  </form>
+      <div>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Name"
+            type="text"
+            required
+          />
+          <mat-error *ngIf="formErrors.name">{{ formErrors.name }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-slider
+          min="1"
+          max="5"
+          step="1"
+          value="5"
+          thumbLabel
+          tickInterval="1"
+        ></mat-slider>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Your Comment</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
+        <br />
+        <button
+          type="submit"
+          mat-button
+          class="background-primary text-floral-white"
+          [disabled]="feedbackForm.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
   <div [hidden]="dish">
     <mat-spinner></mat-spinner>
     <h4>Loading . . . Please Wait</h4>
