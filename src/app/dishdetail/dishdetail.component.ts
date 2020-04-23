@@ -50,7 +50,7 @@ export class DishdetailComponent implements OnInit {
   createForm() {
     this.feedbackForm = this.fb.group({
       name: ["", [Validators.required, Validators.minLength(2)]],
-      rating: "5",
+      rating: 5,
       message: ["", [Validators.required]],
     });
     this.feedbackForm.valueChanges.subscribe((data) =>
