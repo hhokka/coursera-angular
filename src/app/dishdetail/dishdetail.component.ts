@@ -18,7 +18,6 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
-  thisDate = new Date();
   constructor(
     private dishservice: DishService,
     private route: ActivatedRoute,
@@ -83,9 +82,15 @@ export class DishdetailComponent implements OnInit {
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.dish.comments.push({
+      rating: this.feedbackForm.value.rating,
+      comment: this.feedbackForm.value.message,
+      author: this.feedbackForm.value.name,
+      date: Date(),
+    });
     this.feedbackForm.reset({
       name: "",
-      rating: "5",
+      rating: 3,
       message: "",
     });
     this.feedbackFormDirective.resetForm();

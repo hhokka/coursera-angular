@@ -51,6 +51,7 @@
       <mat-list-item>{{ feedbackForm.value.rating }} Stars</mat-list-item>
       <mat-list-item>-- {{ feedbackForm.value.name }}</mat-list-item>
       <mat-list-item>{{ thisDate | date }}</mat-list-item>
+      <mat-list-item>{{ dish.comments[0] | json }}</mat-list-item>
       <br />
     </mat-list>
   </div>
