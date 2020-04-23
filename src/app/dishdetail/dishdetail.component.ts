@@ -18,7 +18,7 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
-
+  thisDate = new Date();
   constructor(
     private dishservice: DishService,
     private route: ActivatedRoute,
