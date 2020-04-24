@@ -7,37 +7,18 @@ import { switchMap } from "rxjs/operators";
 import { ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Feedback, ContactType } from "../shared/feedback";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from "@angular/animations";
+import { visibility } from "../animations/app.animation";
+import { flyInOut, expand } from "../animations/app.animation";
 
 @Component({
   selector: "app-dishdetail",
   templateUrl: "./dishdetail.component.html",
   styleUrls: ["./dishdetail.component.scss"],
-  animations: [
-    trigger("visibility", [
-      state(
-        "shown",
-        style({
-          transform: "scale(1.0)",
-          opacity: 1,
-        })
-      ),
-      state(
-        "hidden",
-        style({
-          transform: "scale(0.5)",
-          opacity: 0,
-        })
-      ),
-      transition("* => *", animate("0.5s ease-in-out")),
-    ]),
-  ],
+  host: {
+    "@flyInOut": "true",
+    style: "display: block",
+  },
+  animations: [visibility(), expand()],
 })
 export class DishdetailComponent implements OnInit {
   dish: Dish;
