@@ -19,8 +19,9 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
+  dishcopy: Dish;
   constructor(
-    private dishservice: DishService,
+    private dishService: DishService,
     private route: ActivatedRoute,
     private location: Location,
     private fb: FormBuilder
@@ -83,31 +84,43 @@ export class DishdetailComponent implements OnInit {
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
-    this.dish.comments.push({
+    this.dishcopy.comments.push({
       rating: this.feedbackForm.value.rating,
       comment: this.feedbackForm.value.message,
       author: this.feedbackForm.value.name,
       date: Date(),
     });
+    this.dishService.putDish(this.dishcopy).subscribe(
+      (dish) => {
+        this.dish = dish;
+        this.dishcopy = dish;
+      },
+      (errmess) => {
+        this.dish = null;
+        this.dishcopy = null;
+        this.errMess = <any>errmess;
+      }
+    );
     this.feedbackForm.reset({
       name: "",
-      rating: 3,
+      rating: 5,
       message: "",
     });
     this.feedbackFormDirective.resetForm();
   }
 
   ngOnInit() {
-    this.dishservice
+    this.dishService
       .getDishIds()
       .subscribe((dishIds) => (this.dishIds = dishIds));
     this.route.params
       .pipe(
-        switchMap((params: Params) => this.dishservice.getDish(params["id"]))
+        switchMap((params: Params) => this.dishService.getDish(params["id"]))
       )
       .subscribe(
         (dish) => {
           this.dish = dish;
+          this.dishcopy = dish;
           this.setPrevNext(dish.id);
         },
         (errmess) => (this.errMess = <any>errmess)
