@@ -17,14 +17,24 @@ export class FeedbackService {
     private processHTTPMsgService: ProcessHTTPMsgService
   ) {}
   feedback: Feedback;
+  /* feedbackcopy = {
+    firstname: "hans",
+    lastname: "hokka",
+    telnum: 1234,
+    email: "hans.hokka@gmail.com",
+    agree: true,
+    contacttype: "Tel",
+    message: "message here",
+  }; */
   submitFeedback(feedback: Feedback): Observable<Dish> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
       }),
     };
+    alert("In feedbackService");
     return this.http
-      .post<Dish>(baseURL + "feedback/" + feedback, httpOptions)
+      .post<Dish>(baseURL + "feedback/", feedback, httpOptions)
       .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 }
