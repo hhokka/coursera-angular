@@ -19,7 +19,7 @@ import { flyInOut, expand } from "../animations/app.animation";
 export class MenuComponent implements OnInit {
   dishes: Dish[];
   errMess: string;
-
+  baseURL = "http://localhost:3000/";
   constructor(private dishService: DishService) {}
 
   ngOnInit() {
