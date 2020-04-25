@@ -3,10 +3,13 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Feedback, ContactType } from "../shared/feedback";
 import { feedbackService, FeedbackService } from "../services/feedback.service";
+import { visibility } from "../animations/app.animation";
+
 @Component({
   selector: "app-contact",
   templateUrl: "./contact.component.html",
   styleUrls: ["./contact.component.scss"],
+  animations: [visibility()],
 })
 export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
@@ -50,6 +53,7 @@ export class ContactComponent implements OnInit {
   ) {
     this.createForm();
   }
+  visibility = "shown";
 
   ngOnInit() {}
 
@@ -115,16 +119,18 @@ export class ContactComponent implements OnInit {
       contacttype: this.feedbackForm.value.contacttype,
       message: this.feedbackForm.value.message,
     };
-    alert(JSON.stringify(this.feedbackcopy));
+    this.visibility = "hidden";
     this.feedbackService.submitFeedback(this.feedbackcopy).subscribe(
       (feedback) => {
-        this.feedback = feedback;
-        this.feedbackcopy = feedback;
+        /* this.feedback = feedback;
+        this.feedbackcopy = feedback; */
+        this.visibility = "shown";
       },
       (errmess) => {
         this.feedback = null;
         this.feedbackcopy = null;
         this.errMess = <any>errmess;
+        alert("errmess on contact");
       }
     );
     this.feedbackForm.reset({
