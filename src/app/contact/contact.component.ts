@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Feedback, ContactType } from "../shared/feedback";
-import { feedbackService, FeedbackService } from "../services/feedback.service";
+import { FeedbackService } from "../services/feedback.service";
 import { visibility } from "../animations/app.animation";
 
 @Component({
@@ -14,9 +14,11 @@ import { visibility } from "../animations/app.animation";
 export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
-  contactType: ContactType;
+  /* contactType: ContactType; */
   feedbackcopy: Feedback;
   errMess: string;
+  hideMatSpinner: boolean;
+  hideData: boolean;
 
   @ViewChild("fform") feedbackFormDirective;
 
@@ -58,6 +60,8 @@ export class ContactComponent implements OnInit {
   ngOnInit() {}
 
   createForm() {
+    this.hideData=true;
+    this.hideMatSpinner=true;
     this.feedbackForm = this.fb.group({
       firstname: [
         "",
@@ -108,6 +112,8 @@ export class ContactComponent implements OnInit {
     }
   }
   onSubmit() {
+    setTimeout(() => this.hideData = true),5000);
+    this.hideMatSpinner = false;
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
     this.feedbackcopy = {
@@ -124,7 +130,10 @@ export class ContactComponent implements OnInit {
       (feedback) => {
         /* this.feedback = feedback;
         this.feedbackcopy = feedback; */
-        this.visibility = "shown";
+       /*  alert("this.visibility shown"); */
+        this.hideMatSpinner = true;
+        this.hideData = false;
+        setTimeout(() => (this.visibility = "shown",this.hideData=true), 5000);
       },
       (errmess) => {
         this.feedback = null;

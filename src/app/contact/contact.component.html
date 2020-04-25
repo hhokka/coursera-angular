@@ -38,7 +38,6 @@
   </div>
   <div fxFlex fxFlexOffset="20px" class="form-size" [@visibility]="visibility">
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
     <form
       novalidate
@@ -108,7 +107,12 @@
       </button>
     </form>
   </div>
-  <div [hidden]="visibility == 'shown'">
+  <div>
+    <p [hidden]="hideData">
+      {{ feedbackForm.value | json }} {{ feedbackForm.status | json }}
+    </p>
+  </div>
+  <div [hidden]="hideMatSpinner">
     <mat-spinner></mat-spinner>
     <h4>Loading . . . Please Wait</h4>
   </div>
