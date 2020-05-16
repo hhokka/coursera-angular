@@ -1,4 +1,5 @@
 # ConFusion
+This is the repository for Coursera's Angular Course work.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
